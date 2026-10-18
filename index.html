@@ -1,155 +1,70 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>車の保有コスト比較シミュレーション</title><style>
-:root{font-family:'Arial','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:#171717;background:#edf1f5;font-weight:600}*{box-sizing:border-box}body{margin:0}.toolbar{max-width:1120px;margin:16px auto;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:0 12px}.toolbar button{background:#c90000;color:white;border:0;border-radius:8px;padding:13px 18px;font-weight:800;cursor:pointer}.toolbar small{color:#59616b}.sheet{width:min(100% - 20px,1100px);margin:0 auto 28px;background:#fff;border:1px solid #999;padding:18px 16px 12px;box-shadow:0 8px 25px #0001}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #111;margin-bottom:10px}.top h1{font-size:clamp(23px,4vw,39px);margin:0 0 10px;font-weight:900;letter-spacing:.03em}.logo{color:#c90000;font:bold 32px Georgia,serif;letter-spacing:-2px}.logo small{display:block;color:#222;text-align:center;font:10px Arial;letter-spacing:0}.customer{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 12px}.customer label{display:flex;gap:7px;align-items:center;font-size:12px}.customer input{width:145px}.layout{display:grid;grid-template-columns:2.35fr 1fr;gap:10px}.main{display:grid;gap:9px}.panel{border:1.7px solid var(--tone);border-radius:9px;padding:10px 12px;color:var(--tone)}.panel h2{font-size:20px;margin:0 0 10px;font-weight:900}.num{display:inline-flex;background:var(--tone);color:white;border-radius:50%;height:29px;width:29px;align-items:center;justify-content:center;margin-right:7px}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.field label{font-size:11px;display:block;color:#202020;margin-bottom:3px}.field input,.customer input,.memo textarea{border:1px solid #c3c9d0;border-radius:5px;padding:7px 5px;width:100%;font-size:19px;font-weight:800;color:var(--tone,#111);background:#fff;min-width:0}.field small{font-size:10px}.calc{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;border-top:1px solid #aaa;padding-top:8px;color:#111;font-size:13px}.calc strong{font-size:22px;color:var(--tone)}.calc .pill{border:1px solid var(--tone);border-radius:6px;padding:7px 9px;text-align:center;color:var(--tone);background:#fafafa;white-space:nowrap}.calc .pill small{display:block;color:var(--tone);font-size:10px}.side{display:flex;flex-direction:column;gap:10px}.sidebox{border:1px solid #555;border-radius:8px;padding:10px}.sidebox h3{font-size:17px;margin:0 0 9px;border-bottom:1px solid #aaa;padding-bottom:8px}.costrow{display:grid;grid-template-columns:1fr 115px;gap:5px;align-items:center;border-bottom:1px dotted #bbb;padding:8px 0;font-size:12px}.costrow input{width:100%;font-size:16px;border:1px solid #ccd1d8;border-radius:5px;padding:6px;color:#c90000;font-weight:800}.totalcost{text-align:right;font-size:23px;color:#c90000;padding:9px 0}.rankrow{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:9px 0;font-size:12px}.rankrow b{font-size:17px}.conclusion{border:1.5px solid #d00000;border-radius:8px;margin-top:10px;padding:10px 15px}.conclusion h2{font-size:20px;margin:0 0 4px}.conclusion p{margin:3px 0;font-size:13px}.benefits{border:1px solid #777;border-radius:8px;padding:9px 12px;margin-top:9px}.benefits h3{margin:0 0 8px;font-size:15px}.benefitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.benefitgrid div{border-left:3px solid #c90000;padding-left:7px;font-size:11px}.benefitgrid b{display:block;color:#c90000;font-size:12px}.memo textarea{font-size:12px;color:#111;min-height:55px;resize:vertical}.note{text-align:right;font-size:10px;margin:8px 0 0;color:#555}.red{--tone:#d00000}.blue{--tone:#0d4b9b}.green{--tone:#087333}.orange{--tone:#f45b0b}input:focus,textarea:focus{outline:2px solid #659cdb;outline-offset:1px}.printonly{display:none}@media(max-width:740px){.sheet{padding:12px;width:100%;border:0}.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr}.top h1{font-size:25px}.logo{font-size:22px}.panel h2{font-size:17px}.fields{gap:5px}.field input{font-size:17px}.calc strong{font-size:18px}.benefitgrid{grid-template-columns:repeat(2,1fr)}.toolbar{margin:10px auto}.toolbar small{font-size:11px}}@page{size:A4 portrait;margin:7mm}@media print{html,body{background:#fff;margin:0;padding:0;print-color-adjust:exact;-webkit-print-color-adjust:exact}.toolbar{display:none}.sheet{width:196mm;max-width:none;margin:0;padding:0;border:0;box-shadow:none}.top h1{font-size:25px;margin-bottom:4px}.logo{font-size:23px}.logo small{font-size:7px}.customer{margin:3px 0 6px}.customer label{font-size:9px}.customer input{font-size:10px!important;padding:2px!important}.layout{grid-template-columns:2.35fr 1fr;gap:6px}.main{gap:6px}.panel{padding:7px 9px;border-width:1px}.panel h2{font-size:14px;margin-bottom:5px}.num{height:21px;width:21px}.field label{font-size:8px}.field input{font-size:16px;padding:3px 2px;border:0;border-bottom:1px solid #ddd;border-radius:0}.field small{font-size:8px}.calc{margin-top:5px;padding-top:5px;font-size:10px}.calc strong{font-size:17px}.calc .pill{padding:3px 5px}.calc .pill small{font-size:8px}.side{display:flex;gap:6px}.sidebox{padding:6px}.sidebox h3{font-size:12px;margin-bottom:4px;padding-bottom:4px}.costrow{font-size:9px;padding:5px 0;grid-template-columns:1fr 85px}.costrow input{font-size:12px;padding:2px}.totalcost{font-size:18px;padding:4px 0}.rankrow{font-size:9px;padding:5px 0}.rankrow b{font-size:13px}.memo textarea{font-size:9px;min-height:35px;padding:3px}.conclusion{margin-top:6px;padding:6px 10px}.conclusion h2{font-size:15px}.conclusion p{font-size:10px}.benefits{margin-top:6px;padding:6px 9px}.benefits h3{font-size:12px}.benefitgrid{grid-template-columns:repeat(4,1fr);gap:5px}.benefitgrid div{font-size:8px}.benefitgrid b{font-size:9px}.note{font-size:8px;margin-top:4px}} 
- .shared-price{font-size:18px;font-weight:800;padding:7px 0}.shared-price small{font-size:10px;font-weight:normal;color:#666}@media print{#commonPrice{border:0!important;background:transparent!important}} .logo img{display:block;width:150px;max-width:100%;height:auto;object-fit:contain}.totalcost{font-weight:900!important}.totalcost span{font-weight:900!important}@media print{.logo img{width:120px}}  .cost-memo-box{background:#fff;border:2px solid #444;display:block!important;visibility:visible!important}.memo-hint{font-size:11px;color:#555;margin:0 0 7px}.cost-memo-box .totalcost{font-weight:900;font-size:24px}.cost-memo-box .totalcost span{font-weight:900}.cost-memo-box textarea{display:block;width:100%;min-height:70px}@media print{.cost-memo-box{border-width:1px}.memo-hint{font-size:7px;margin:0 0 3px}.cost-memo-box .totalcost{font-size:18px}.cost-memo-box textarea{min-height:36px}} 
-/* Reference-matched editable right column */
-.side{gap:10px}.sidebox{padding:10px;border:1.5px solid #20324d;border-radius:8px;background:#fff}
-.expense-box h3,.note-box h3,.annual-box h3{font-size:17px;font-weight:900;border-bottom:1px solid #8b98a9;padding-bottom:9px;margin:0 0 8px}
-.expense-row,.expense-total{display:grid;grid-template-columns:minmax(0,1fr) 85px 15px;gap:5px;align-items:center;min-height:43px;font-size:12px;font-weight:800}
-.expense-row input,.expense-total input{width:100%;min-width:0;height:31px;border:1px solid #9ca8b7;border-radius:3px;background:#fff;color:#161d29;font-size:15px;text-align:right;padding:3px 5px;font-weight:800}
-.expense-row span,.expense-total span{font-size:11px;text-align:right}
-.expense-hint{font-size:10px;text-align:center;color:#66717f;margin:1px 0 8px}
-.expense-total{border-top:2px solid #a4afbd;padding-top:10px;min-height:45px;font-weight:900}
-.expense-total input{font-weight:900;background:#f5f7fa}
-.note-box{border-color:#0d4b9b}.note-box h3{font-size:12px}.note-box textarea{display:block;width:100%;height:125px;min-height:125px;resize:vertical;border:0;outline:0;font-size:13px;font-weight:600;line-height:25px;padding:0 3px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 24px,#9aaabd 24px,#9aaabd 25px);color:#182438}
-.annual-box{border-color:#0d4b9b}.annual-box h3{color:#0d4b9b;font-size:17px;white-space:nowrap}.annual-box h3 small{font-size:10px;color:#333}
-.annual-row{display:grid;grid-template-columns:minmax(0,1fr) 15px 76px;align-items:center;gap:5px;min-height:54px;border-bottom:1px solid #b8c1cb;color:var(--rowcolor);font-size:12px;font-weight:900}
-.annual-row span{color:#777}.annual-row output{border:1px solid #9da9b8;border-radius:3px;min-height:31px;padding:6px 4px;text-align:center;background:#fff;color:#1b2430;font-size:15px;font-weight:900}
-.annual-foot{font-size:9px;color:#777;margin:8px 0 0}
-@media(max-width:740px){.side{display:flex;flex-direction:column}.expense-row,.expense-total{grid-template-columns:minmax(0,1fr) 105px 18px}.expense-row input,.expense-total input{height:36px}.annual-row{grid-template-columns:minmax(0,1fr) 15px 95px}}
-@media print{.side{gap:6px}.sidebox{padding:6px;border-width:1px}.expense-box h3,.note-box h3,.annual-box h3{font-size:11px;margin-bottom:3px;padding-bottom:4px}.expense-row,.expense-total{grid-template-columns:minmax(0,1fr) 55px 10px;gap:2px;min-height:24px;font-size:8px}.expense-row input,.expense-total input{height:19px;font-size:9px;padding:1px 2px}.expense-row span,.expense-total span{font-size:8px}.expense-hint{font-size:7px;margin:0 0 3px}.expense-total{min-height:27px;padding-top:4px}.note-box h3{font-size:9px}.note-box textarea{height:72px;min-height:72px;font-size:9px;line-height:14px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 13px,#9aaabd 13px,#9aaabd 14px)}.annual-box h3{font-size:11px}.annual-box h3 small{font-size:7px}.annual-row{grid-template-columns:minmax(0,1fr) 10px 51px;gap:2px;min-height:32px;font-size:8px}.annual-row output{font-size:10px;min-height:20px;padding:3px 1px}.annual-foot{font-size:7px;margin:3px 0 0}}
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>車の保有コスト比較シミュレーション</title><style>
+:root{font-family:Arial,"Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;font-weight:700;color:#121212;background:#edf1f5}*{box-sizing:border-box}body{margin:0}.toolbar{max-width:1140px;margin:14px auto 6px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:15px}.toolbar small{display:block;color:#54606b;font-weight:500;font-size:12px;margin-top:5px}.pdf-actions{display:flex;gap:9px}.pdf-actions button{border:0;border-radius:7px;background:#c90000;color:#fff;padding:12px 19px;font-size:14px;font-weight:800;cursor:pointer}.pdf-actions #pdfButton{background:#263f5d}.pdf-actions button:disabled{opacity:.6}.pdf-help{max-width:1110px;margin:0 auto 8px;font-weight:500;color:#5e6670;font-size:11px;padding:0 8px;min-height:14px}.pdf-help[role=alert]{color:#c00}.sheet{width:1100px;max-width:calc(100% - 18px);margin:0 auto 24px;padding:14px 16px 10px;background:#fff;border:1px solid #888;box-shadow:0 5px 24px #0002}.top{display:flex;align-items:end;justify-content:space-between;border-bottom:2px solid #151515;padding:0 4px 5px;margin-bottom:9px;gap:12px}.top h1{font-size:39px;letter-spacing:.01em;margin:0;font-weight:900}.honda{font:bold 30px Georgia,serif;color:#ce0000;letter-spacing:-1px;line-height:1;text-align:center}.honda small{display:block;font:12px Georgia,serif;color:#111;letter-spacing:0}.honda img{display:block;width:190px;height:auto;max-width:100%;object-fit:contain}.customer{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:7px}.customer label{display:flex;align-items:center;gap:8px;font-size:12px}.customer input{flex:1;min-width:0;font-size:13px;padding:5px 9px;border:1px solid #c2c9d0;border-radius:4px}.layout{display:grid;grid-template-columns:minmax(0,2.48fr) minmax(0,1fr);gap:11px;align-items:start}.main,.side{display:flex;flex-direction:column;gap:9px;min-width:0}.panel{border:1.7px solid var(--tone);border-radius:9px;padding:11px 14px;color:var(--tone);background:#fff}.panel h2{display:flex;align-items:center;gap:9px;margin:0 0 9px;font-size:24px;font-weight:900;white-space:nowrap}.panel h2 small{font-size:12px}.num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;color:white;background:var(--tone);flex:none;font-size:24px}.red{--tone:#d00000}.blue{--tone:#0d4b9b}.green{--tone:#087333}.orange{--tone:#f45b0b}.common{border:1.7px solid #cc0000;border-radius:8px;background:#fffafa;padding:8px 14px;display:flex;align-items:center;gap:14px;color:#c00;font-weight:900;font-size:16px}.common input{width:115px;border:1px solid #b9b9b9;border-radius:5px;font-size:22px;color:#151515;padding:4px 8px;font-weight:900}.triplet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.unit-block{min-width:0}.unit-block label{display:block;font-size:12px;color:#151515;margin:0 0 5px;white-space:nowrap}.unit-block label::before{content:'◉';color:var(--tone);padding-right:6px}.unit-block input{display:block;width:100%;min-width:0;border:0;border-bottom:1px solid #bcbcbc;border-radius:0;font-size:23px;color:var(--tone);font-weight:900;padding:2px 0;background:transparent}.unit-block .shared{font-size:23px;font-weight:900;padding:4px 0;border-bottom:1px solid #bbb;white-space:nowrap}.unit-block small{font-size:10px;color:#818181;font-weight:500}.formula{margin-top:7px;border-top:1px solid #aaa;padding:8px 0 6px;display:flex;justify-content:space-around;align-items:center;gap:6px;font-size:23px;color:#111;font-weight:900}.formula .operator{color:#161616;font-size:27px}.formula .eq{font-size:22px}.formula .money{white-space:nowrap}.formula .money span{font-size:13px}.results{display:flex;justify-content:space-between;gap:10px;align-items:stretch;margin-top:5px;border-top:1px solid var(--tone);padding-top:7px}.results .note-text{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:900}.metric{border:1px solid var(--tone);border-radius:6px;padding:4px 9px;text-align:center;white-space:nowrap;min-width:107px;color:var(--tone)}.metric small{display:block;color:var(--tone);font-size:10px}.metric strong{font-size:23px}.metric span{font-size:13px}.results .metric-row{display:flex;gap:6px}.panel .longcalc{border-top:1px solid #aaa;padding:7px 0 3px;margin-top:5px;display:flex;align-items:center;justify-content:space-between;gap:7px;color:#111;font-size:19px;font-weight:900}.panel .longcalc .explain{color:var(--tone);font-size:17px}.panel .longcalc .condensed{font-size:19px;white-space:nowrap}.panel .longcalc .metric{min-width:90px}.panel .longcalc .metric strong{font-size:19px}.panel .bottom-summary{display:flex;justify-content:space-between;border-top:1px solid var(--tone);margin-top:6px;padding-top:7px;gap:8px;align-items:center}.panel .bottom-summary .statement{font-size:17px;font-weight:900}.panel .bottom-summary .metric{min-width:130px}.panel .bottom-summary .metric strong{font-size:22px}.tens .formula,.sevens .formula{margin-top:10px}.tens .results,.sevens .results{margin-top:8px}.sidebox{border:1.5px solid #444;border-radius:8px;padding:11px 12px;color:#151515}.sidebox h3{margin:0 0 8px;border-bottom:1px solid #999;padding:0 0 7px;font-size:18px}.expense-row{display:grid;grid-template-columns:minmax(0,1fr) 112px 12px;align-items:center;gap:3px;padding:9px 0;border-bottom:1px dotted #9c9c9c;min-height:55px}.expense-row label{font-size:15px;font-weight:900}.expense-row input{width:100%;font-size:20px;font-weight:900;text-align:right;color:#c00;border:0;border-bottom:1px solid #aaa;background:#fff;padding:2px 2px}.expense-row span{font-size:11px}.expense-hint{margin:2px 0 7px;font-size:10px;color:#777;text-align:right}.expense-total{padding:10px 0 6px;border-top:1px solid #777;display:flex;align-items:center;justify-content:space-between;gap:4px}.expense-total label{font-size:15px}.expense-total input{border:0;background:#fff;color:#c00;font-size:23px;min-width:0;width:135px;text-align:right;font-weight:900}.expense-total span{font-size:12px}.note-box{border-color:#263f5d}.note-box h3{font-size:14px}.note-box textarea{display:block;width:100%;height:90px;resize:vertical;border:0;border-radius:0;outline:0;font:600 13px/24px Arial,sans-serif;background:repeating-linear-gradient(to bottom,transparent 0,transparent 23px,#97a4b1 23px,#97a4b1 24px)}.annual-box{border-color:#0d4b9b}.annual-box h3{color:#0d4b9b;font-size:17px}.annual-box h3 small{font-size:10px;color:#555}.annual-row{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #bbb;padding:12px 1px;font-size:15px;color:var(--rowcolor)}.annual-row output{font-size:23px;color:var(--rowcolor);font-weight:900;white-space:nowrap}.annual-row output small{font-size:11px}.annual-foot{font-size:10px;color:#666;margin:8px 0 0}.conclusion{border:1.7px solid #d00000;border-radius:8px;margin-top:11px;padding:12px 18px;background:#fff;color:#111}.conclusion h2{font-size:23px;margin:0 0 6px}.conclusion h2 b{color:#d00000;border:1px solid #d00000;padding:2px 5px;border-radius:4px;margin-right:10px}.conclusion p{margin:3px 0 2px;font-size:15px}.conclusion .redline{font-size:18px;color:#d00000;font-weight:900}.benefits{border:1px solid #555;border-radius:8px;padding:9px 14px;margin-top:10px}.benefits h3{font-size:17px;margin:0 0 8px;border-bottom:1px solid #aaa;padding-bottom:6px}.benefitgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.benefitgrid div{border-left:1px solid #aaa;padding:4px 10px;font-size:12px;line-height:1.55}.benefitgrid div:first-child{border-left:0}.benefitgrid b{display:block;color:#c00;font-size:15px}.note{text-align:right;color:#555;font-size:10px;margin:8px 0 0}.chart-box{display:none}.printonly{display:none}input:focus,textarea:focus{outline:2px solid #80b0d5;outline-offset:1px}@media(max-width:800px){.sheet{width:1100px;max-width:none;transform-origin:top left;zoom:.65;margin-left:6px}.toolbar{flex-wrap:wrap}.pdf-help{padding:0 12px}}@page{size:A4 portrait;margin:0}@media print{html,body{width:210mm;height:297mm;margin:0;padding:0;background:#fff}.toolbar,.pdf-help{display:none}.sheet{width:1100px;max-width:none;zoom:.7;box-shadow:none;margin:0;border:0;padding:14px 16px 10px;transform:none}}
 
-/* Right column: compact layout and emphasized maintenance amounts */
-.side{justify-content:flex-start;align-self:start;gap:7px}
-.sidebox{padding:8px 9px}
-.expense-row{min-height:37px;grid-template-columns:minmax(0,1fr) 105px 14px}
-.expense-row input{height:32px;font-size:20px;font-weight:900;color:#d00000;background:#fff7f7;border-color:#d9b2b2}
-.expense-row span{color:#d00000;font-weight:900}
-.expense-total{grid-template-columns:minmax(0,1fr) 105px 14px;min-height:42px;padding-top:6px}
-.expense-total input{height:34px;font-size:21px;font-weight:900;color:#d00000;background:#fff2f2;border-color:#d00000}
-.expense-total span{color:#d00000;font-weight:900}
-.note-box textarea{height:96px;min-height:96px}
-.annual-row{min-height:43px}
-.annual-row output{font-size:18px;color:var(--rowcolor);border:0;text-align:right;background:transparent}
-.annual-foot{margin-top:4px}
-@media(max-width:740px){.expense-row,.expense-total{grid-template-columns:minmax(0,1fr) 110px 18px}}
-@media print{.side{gap:4px}.sidebox{padding:5px}.expense-row{min-height:23px;grid-template-columns:minmax(0,1fr) 63px 10px}.expense-row input{height:21px;font-size:12px}.expense-total{min-height:27px;grid-template-columns:minmax(0,1fr) 63px 10px}.expense-total input{height:22px;font-size:13px}.note-box textarea{height:59px;min-height:59px}.annual-row{min-height:28px}.annual-row output{font-size:12px;padding:2px}}
+/* 読みやすさ改善: 主要レイアウトとPDF生成ロジックはそのまま */
+.toolbar small{font-size:13px}
+.pdf-help{font-size:12px}
+.customer label{font-size:14px}
+.customer input{font-size:15px}
+.common{font-size:18px}
+.unit-block label{font-size:14px;letter-spacing:-.02em}
+.unit-block small{font-size:12px}
+.panel h2 small{font-size:13px}
+.formula .money span{font-size:15px}
+.metric small{font-size:12px}
+.metric span{font-size:14px}
+.results .note-text{font-size:17px}
+.panel .longcalc .explain{font-size:18px}
+.panel .bottom-summary .statement{font-size:18px}
+.expense-row label{font-size:17px}
+.expense-row span{font-size:13px}
+.expense-hint{font-size:12px}
+.expense-total label{font-size:17px}
+.expense-total span{font-size:14px}
+.note-box h3{font-size:16px}
+.note-box textarea{font-size:15px;line-height:25px}
+.annual-box h3 small{font-size:12px}
+.annual-row{font-size:16px}
+.annual-row output small{font-size:13px}
+.annual-foot{font-size:12px}
+.conclusion p{font-size:17px}
+.conclusion .redline{font-size:19px}
+.benefits h3{font-size:19px}
+.benefitgrid div{font-size:14px;line-height:1.45;padding-left:8px;padding-right:8px}
+.benefitgrid b{font-size:16px}
+.note{font-size:12px}
 
-/* Right column fills the same vertical extent as the four comparison panels. */
-@media (min-width:741px){
-/* Avoid stretching the left comparison cards and the right memo boxes. */
-.layout{align-items:start!important}
-.main{align-self:start!important;display:flex!important;flex-direction:column!important;gap:9px!important}
-.main>.panel{flex:0 0 auto!important}
-.side{align-self:start!important;display:flex!important;flex-direction:column!important;gap:8px!important;min-height:0!important;height:auto!important}
-.sidebox{display:block!important;flex:none!important;height:auto!important;min-height:0!important;padding:8px 9px!important}
-.expense-row{min-height:37px!important;flex:none!important}
-.expense-total{min-height:42px!important;flex:none!important}
-.note-box textarea{height:96px!important;min-height:96px!important;flex:none!important;resize:vertical!important}
-.annual-row{min-height:43px!important;flex:none!important}
-@media print{.main{gap:6px!important}.side{gap:5px!important}.sidebox{padding:5px!important}.expense-row{min-height:23px!important}.expense-total{min-height:27px!important}.note-box textarea{height:59px!important;min-height:59px!important}.annual-row{min-height:28px!important}}
-
-/* Annual comparison visual - matches existing PowerPoint color system */
-.chart-box{border-color:#0d4b9b}
-.chart-box h3{color:#0d4b9b;font-size:16px;font-weight:900;border-bottom:1px solid #9aaabd;margin:0 0 9px;padding-bottom:7px}
-.chart-line{margin:0 0 10px}
-.chart-line-top{display:flex;justify-content:space-between;align-items:center;gap:5px;font-size:11px;font-weight:900;margin-bottom:4px}
-.chart-line-top strong{font-size:15px;white-space:nowrap}
-.chart-track{height:13px;background:#edf0f3;border-radius:3px;overflow:hidden}
-.chart-fill{height:100%;width:0;background:var(--barcolor);border-radius:3px;transition:width .2s}
-.chart-best{border-top:1px solid #b8c1cb;margin-top:6px;padding-top:8px;font-size:12px;font-weight:900;color:#12602c;line-height:1.5}
-.chart-sub{font-size:9px;color:#68727e;line-height:1.5;margin:4px 0 0}
-.expense-row input,.expense-total input{color:#c90000!important;font-weight:900!important;font-size:18px!important}
-.expense-total input{font-size:21px!important}
-@media print{.chart-box h3{font-size:10px;margin-bottom:4px;padding-bottom:3px}.chart-line{margin-bottom:4px}.chart-line-top{font-size:7px;margin-bottom:2px}.chart-line-top strong{font-size:9px}.chart-track{height:6px}.chart-best{font-size:8px;padding-top:4px}.chart-sub{font-size:6px;margin-top:2px}.expense-row input,.expense-total input{font-size:11px!important}.expense-total input{font-size:12px!important}}
-
-/* Customer labels must never split Japanese characters across lines */
-.customer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:center}
-.customer label{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:9px;align-items:center;min-width:0;white-space:nowrap;font-size:13px}
-.customer input{width:100%;min-width:0}
-@media(max-width:740px){.customer{gap:8px}.customer label{font-size:11px;gap:5px}.customer input{font-size:14px;padding:6px 4px}}
-@media(max-width:420px){.customer{grid-template-columns:1fr}}
-@media print{.customer{grid-template-columns:1fr 1fr;gap:10px}.customer label{font-size:9px;white-space:nowrap}}
-
-/* A4 single-page print layout: screen appearance is unchanged */
-@page { size: A4 portrait; margin: 5mm !important; }
-@media print {
-  html,body { width: 200mm !important; margin:0 !important; padding:0 !important; overflow:visible !important; }
-  .toolbar { display:none !important; }
-  .sheet { width: 200mm !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; zoom: .78; }
-  .layout { grid-template-columns: 2.35fr 1fr !important; }
-  .main,.side { break-inside:avoid; }
-  .panel,.sidebox,.conclusion,.benefits { break-inside:avoid; page-break-inside:avoid; }
-  .top h1 { font-size:24px !important; }
-  .panel { padding:5px 7px !important; }
-  .panel h2 { margin-bottom:4px !important; }
-  .main { gap:4px !important; }
-  .side { gap:4px !important; }
-  .sidebox { padding:5px !important; }
-  .customer { margin:3px 0 5px !important; }
-  .benefits { margin-top:4px !important; }
-  .conclusion { margin-top:4px !important; }
-  .chart-line { margin-bottom:3px !important; }
-  .note { margin-top:2px !important; }
+/* 2026-10: 金額と計算結果だけ視認性を強化。説明文・デザインは維持 */
+.common input{font-size:27px; font-variant-numeric:tabular-nums}
+.unit-block input,.unit-block .shared{font-size:27px;font-variant-numeric:tabular-nums}
+.formula{font-size:26px}
+.formula .money span{font-size:16px}
+.metric strong{font-size:28px;font-variant-numeric:tabular-nums}
+.panel .longcalc .condensed{font-size:22px}
+.panel .longcalc .metric strong{font-size:23px}
+.panel .bottom-summary .metric strong{font-size:27px}
+.expense-row input{font-size:24px;font-variant-numeric:tabular-nums}
+.expense-total input{font-size:26px;font-variant-numeric:tabular-nums}
+.annual-row output{font-size:27px;font-variant-numeric:tabular-nums}
+</style></head><body><div class="toolbar"><div><b>保有コスト比較 WEBアプリ</b><small>数値を変更すると自動計算されます。入力データはこの端末内に保存されます。</small></div><div class="pdf-actions"><button id="printButton" type="button" onclick="createA4Pdf('print')">直接印刷</button><button id="pdfButton" type="button" onclick="createA4Pdf('save')">PDF保存</button></div></div><div class="pdf-help" id="pdfHelp">A4縦・1ページのPDFを作成します（オフライン対応）。</div><article class="sheet"><header class="top"><h1>車の保有コスト比較</h1><div class="honda"><img src="data:image/png;base64,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" alt="HONDA NET KINKI logo"></div></header><div class="customer"><label>お客様名<input id="customer" placeholder="お名前"></label><label>車名<input id="car" placeholder="車種"></label></div><div class="layout"><div class="main"><div class="common">共通の車両代（万円）<input id="commonPrice" type="number" value="250" min="0" step="any"></div><section class="panel red tens"><h2><span class="num">1</span>10年乗った場合</h2><div class="triplet"><div class="unit-block"><label>車両代（万円）</label><div class="shared"><strong id="display-p10">250</strong><small> 万円 （共通設定）</small></div></div><div class="unit-block"><label>維持費（万円）</label><input type="number" id="m10" value="100" step="any"></div><div class="unit-block"><label>10年後査定額（万円）</label><input type="number" id="r10" value="10" step="any"></div></div><div class="formula"><div class="money"><span data-price>250</span><span>万円</span></div><span class="operator">＋</span><div class="money"><span id="fm10">0</span><span>万円</span></div><span class="operator">−</span><div class="money"><span id="fr10">0</span><span>万円</span></div><span class="eq">＝</span><div class="metric"><small>総コスト</small><strong id="t10">0</strong><span>万円</span></div></div><div class="results"><div class="note-text">10年で1台</div><div class="metric-row"><span style="align-self:center;font-size:15px">年間コスト</span><div class="metric"><strong id="a10">0</strong><span>万円／年</span></div></div></div></section><section class="panel blue"><h2><span class="num">2</span>3年ごとに乗り換えた場合 <small>（車検なし）</small></h2><div class="triplet"><div class="unit-block"><label>車両代（万円）</label><div class="shared"><strong id="display-p3">250</strong><small> 万円 （共通設定）</small></div></div><div class="unit-block"><label>維持費（万円）</label><input type="number" id="m3" value="0" step="any"></div><div class="unit-block"><label>3年後査定額（万円）</label><input type="number" id="r3" value="140" step="any"></div></div><div class="longcalc"><span class="condensed"><span data-price>250</span>万円 − <span id="fr3">0</span>万円</span><span>＝</span><div class="metric"><small>1回あたり</small><strong id="once3">0</strong><span>万円</span></div></div><div class="bottom-summary"><div class="statement">10年で <input type="number" min="1" id="n3" value="3" style="width:40px;border:0;border-bottom:1px solid #aaa;color:var(--tone);font-size:23px;font-weight:900;text-align:center"> 台 <small style="font-size:12px">(車検なし)</small></div><span style="font-size:19px;color:#111"><strong id="once3b">0</strong>万円 × <strong id="times3">3</strong>台</span><div class="metric"><small>総コスト</small><strong id="t3">0</strong><span>万円</span></div><div class="metric"><small>年間コスト</small><strong id="a3">0</strong><span>万円／年</span></div></div></section><section class="panel green"><h2><span class="num">3</span>5年ごとに乗り換えた場合</h2><div class="triplet"><div class="unit-block"><label>車両代（万円）</label><div class="shared"><strong id="display-p5">250</strong><small> 万円 （共通設定）</small></div></div><div class="unit-block"><label>維持費（万円）</label><input type="number" id="m5" value="15" step="any"></div><div class="unit-block"><label>5年後査定額（万円）</label><input type="number" id="r5" value="100" step="any"></div></div><div class="longcalc"><span class="condensed"><span data-price>250</span>万円 − <span id="fr5">0</span>万円</span><span>＝</span><div class="metric"><small>1回あたり</small><strong id="once5">0</strong><span>万円</span></div></div><div class="bottom-summary"><div class="statement">10年で <input type="number" min="1" id="n5" value="2" style="width:40px;border:0;border-bottom:1px solid #aaa;color:var(--tone);font-size:23px;font-weight:900;text-align:center"> 台 <small style="font-size:12px"></small></div><span style="font-size:19px;color:#111"><strong id="once5b">0</strong>万円 × <strong id="times5">2</strong>台</span><div class="metric"><small>総コスト</small><strong id="t5">0</strong><span>万円</span></div><div class="metric"><small>年間コスト</small><strong id="a5">0</strong><span>万円／年</span></div></div></section><section class="panel orange sevens"><h2><span class="num">4</span>7年乗った場合</h2><div class="triplet"><div class="unit-block"><label>車両代（万円）</label><div class="shared"><strong id="display-p7">250</strong><small> 万円 （共通設定）</small></div></div><div class="unit-block"><label>維持費（万円）</label><input type="number" id="m7" value="30" step="any"></div><div class="unit-block"><label>7年後査定額（万円）</label><input type="number" id="r7" value="60" step="any"></div></div><div class="formula"><div class="money"><span data-price>250</span><span>万円</span></div><span class="operator">＋</span><div class="money"><span id="fm7">0</span><span>万円</span></div><span class="operator">−</span><div class="money"><span id="fr7">0</span><span>万円</span></div><span class="eq">＝</span><div class="metric"><small>総コスト</small><strong id="t7">0</strong><span>万円</span></div></div><div class="results"><div class="note-text">7年で1台</div><div class="metric-row"><span style="align-self:center;font-size:15px">年間コスト</span><div class="metric"><strong id="a7">0</strong><span>万円／年</span></div></div></div></section></div><aside class="side"><section class="sidebox expense-box"><h3>その他 維持費メモ</h3><div class="expense-row"><label for="tax">自動車税</label><input id="tax" type="text" inputmode="numeric" value="54000"><span>円</span></div><div class="expense-row"><label for="tire">タイヤ</label><input id="tire" type="text" inputmode="numeric" value="60000"><span>円</span></div><div class="expense-row"><label for="battery">バッテリー</label><input id="battery" type="text" inputmode="numeric" value="18000"><span>円</span></div><div class="expense-row"><label for="inspection">車検</label><input id="inspection" type="text" inputmode="numeric" value="0"><span>円</span></div><div class="expense-row"><label for="other">その他</label><input id="other" type="text" inputmode="numeric" value="25000"><span>円</span></div><p class="expense-hint">（オイル・消耗品なども入力できます）</p><div class="expense-total"><label>合計の目安</label><input readonly id="miscTotalInput"><span>円</span></div></section><section class="sidebox note-box"><h3>メモ（その他費用など）</h3><textarea id="memo"></textarea></section><section class="sidebox annual-box"><h3>年間コスト比較 <small>（万円／年）</small></h3><div class="annual-row" style="--rowcolor:#0d4b9b"><span>3年ごとに乗換</span><output id="s3">0</output></div><div class="annual-row" style="--rowcolor:#087333"><span>5年ごとに乗換</span><output id="s5">0</output></div><div class="annual-row" style="--rowcolor:#f45b0b"><span>7年乗った場合</span><output id="s7">0</output></div><div class="annual-row" style="--rowcolor:#d00000"><span>10年乗った場合</span><output id="s10">0</output></div><p class="annual-foot" id="bestChoice">※金額はすべて概算です。</p></section></aside></div><section class="conclusion"><h2><b>結 論</b>長く乗る＝安いとは限りません！</h2><p>3年・5年での乗り換えでも、年間コストがほとんど変わらない場合があります。</p><p>高査定で売却し、計画的に乗り換えることで、</p><p class="redline">快適で安心なカーライフを実現できます！</p></section><section class="benefits"><h3>計画的に乗り換えるメリット</h3><div class="benefitgrid"><div><b>高査定で売却可能！</b>新しいうちに売却することで、総コストの低減につながります。</div><div><b>車検前に乗換！</b>車検費用がかかる前に乗り換えることで、出費を抑えられます。</div><div><b>最新安全装備へ！</b>定期的に乗り換えることで、最新の安全装備・機能を利用できます。</div><div><b>月々の負担を一定化！</b>計画的な買い替えで家計管理をしやすくします。</div></div></section><p class="note">※概算の比較です。3年・5年は設定台数分を10年間で割り、7年は7年間で割っています。費用条件などにより変動します。</p></article><script>const ids=['customer','car','commonPrice','m10','r10','m3','r3','n3','m5','r5','n5','m7','r7','tax','tire','battery','inspection','other','memo'];
+try{let d=JSON.parse(localStorage.getItem('car-cost-data')||'{}');ids.forEach(id=>{const el=document.getElementById(id);if(el&&d[id]!==undefined)el.value=d[id]})}catch(e){}
+const val=id=>{const el=document.getElementById(id);return Number(String(el?el.value:'').replace(/,/g,''))||0},fmt=n=>Number(n.toFixed(1)).toLocaleString('ja-JP',{maximumFractionDigits:1}),put=(id,n)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(n)};
+function calculate(){const p=val('commonPrice');document.querySelectorAll('[data-price]').forEach(e=>e.textContent=fmt(p));['10','3','5','7'].forEach(id=>put('display-p'+id,p));const arr=[];
+for(const [id,years] of [['10',10],['3',10],['5',10],['7',7]]){const m=val('m'+id),r=val('r'+id),n=(id==='3'||id==='5')?val('n'+id):1,one=p+m-r,total=one*n,annual=total/years;
+put('fm'+id,m);put('fr'+id,r);put('t'+id,total);put('a'+id,annual);put('s'+id,annual);if(id==='3'||id==='5'){put('once'+id,one);put('once'+id+'b',one);put('times'+id,n)}arr.push({id,annual,title:{'10':'10年保有','3':'3年乗換','5':'5年乗換','7':'7年保有'}[id]})}
+const best=arr.reduce((a,b)=>a.annual<=b.annual?a:b);document.getElementById('bestChoice').textContent='年間コスト最小：'+best.title+'（'+fmt(best.annual)+'万円／年）';document.getElementById('miscTotalInput').value=['tax','tire','battery','inspection','other'].reduce((s,id)=>s+val(id),0).toLocaleString('ja-JP');try{localStorage.setItem('car-cost-data',JSON.stringify(Object.fromEntries(ids.map(id=>{const el=document.getElementById(id);return [id,el?el.value:'']}))))}catch(e){}
 }
-
-/* Edge/A4 print: single positioned sheet avoids fragmentation by the print engine. */
-@page { size: 210mm 297mm; margin: 5mm; }
-@media print {
-  html, body { margin:0!important; padding:0!important; width:200mm!important; height:0!important; min-height:0!important; overflow:visible!important; background:#fff!important; }
-  .toolbar { display:none!important; }
-  .sheet { position:absolute!important; top:0!important; left:50%!important; width:200mm!important; max-width:none!important; margin:0!important; padding:0!important; height:auto!important; min-height:0!important; box-shadow:none!important; border:0!important; transform:translateX(-50%)!important; zoom:.86!important; }
-  .layout{grid-template-columns:2.35fr 1fr!important;}
-  .main{gap:5px!important;} .side{gap:4px!important;} .sidebox{padding:5px!important;}
-  .panel{padding:5px 7px!important;} .panel h2{margin-bottom:4px!important;}
-  .customer{margin:3px 0 5px!important;} .conclusion,.benefits{margin-top:4px!important;}
-  .chart-line{margin-bottom:3px!important;} .note{margin-top:2px!important;}
-  .top h1{font-size:24px!important;}
-  .main,.side,.panel,.sidebox,.conclusion,.benefits,.benefitgrid {break-inside:auto!important;page-break-inside:auto!important;}
-}
-
-.pdf-help{max-width:1120px;margin:-7px auto 12px;padding:0 12px;font-size:12px;color:#42516a}
-.pdf-help[role="alert"]{color:#b00020;font-weight:700}
-@media print{.pdf-help{display:none!important}}
-</style></head><body><div class="toolbar"><div><b>保有コスト比較 WEBアプリ</b><br><small>数値を変更すると自動計算されます。データはこの端末内でのみ保持されます。</small></div><button id="pdfButton" type="button" onclick="createA4Pdf()">A4 PDF作成・印刷</button></div><div class="pdf-help" id="pdfHelp">印刷ボタンでA4縦1ページのPDFを作成します。PDFを開き、その画面から印刷してください（ネット接続不要）。</div><article class="sheet"><header class="top"><h1>車の保有コスト比較シミュレーション</h1></header><div class="customer"><label>お客様名 <input id="customer" placeholder="お名前"></label><label>車名 <input id="car" placeholder="車種"></label></div><div class="layout"><div class="main">
-<section class="panel" style="border:2px solid #c90000;margin-bottom:12px;padding:12px 16px;background:#fff9f9"><label for="commonPrice" style="font-weight:900;font-size:17px;color:#c90000">共通の車両代（万円）</label><input type="number" id="commonPrice" value="250" min="0" step="1" style="width:150px;margin-left:12px;font-size:20px;font-weight:800;padding:7px;border:1px solid #b6b6b6;border-radius:5px"></section><section class="panel red"><h2><span class="num">1</span>10年乗った場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p10">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m10" value="100"></div><div class="field"><label>10年後査定額（万円）</label><input type="number" id="r10" value="10"></div></div><div class="calc"><span>車両代 ＋ 維持費 − 査定額</span><div class="pill"><small>総コスト</small><strong id="t10">340</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a10">34</strong> 万円</div></div></section>
-<section class="panel blue"><h2><span class="num">2</span>3年ごとに乗り換えた場合 <small style="font-size:11px">（車検なし）</small></h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p3">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円・1台あたり3年間）</label><input type="number" id="m3" value="0"></div><div class="field"><label>3年後査定額（万円）</label><input type="number" id="r3" value="140"></div><div class="field"><label>10年間の乗換台数</label><input type="number" id="n3" value="3" min="1"></div></div><div class="calc"><span>（車両代 ＋ 維持費 − 査定額）× 台数</span><div class="pill"><small>総コスト</small><strong id="t3">330</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a3">33</strong> 万円</div></div></section>
-<section class="panel green"><h2><span class="num">3</span>5年ごとに乗り換えた場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p5">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m5" value="15"></div><div class="field"><label>5年後査定額（万円）</label><input type="number" id="r5" value="100"></div><div class="field"><label>10年間の乗換台数</label><input type="number" id="n5" value="2" min="1"></div></div><div class="calc"><span>（車両代 ＋ 維持費 − 査定額）× 台数</span><div class="pill"><small>総コスト</small><strong id="t5">330</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a5">33</strong> 万円</div></div></section>
-<section class="panel orange"><h2><span class="num">4</span>7年乗った場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p7">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m7" value="30"></div><div class="field"><label>7年後査定額（万円）</label><input type="number" id="r7" value="60"></div></div><div class="calc"><span>車両代 ＋ 維持費 − 査定額</span><div class="pill"><small>総コスト</small><strong id="t7">220</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a7">31.4</strong> 万円</div></div></section></div>
-<aside class="side" aria-label="維持費メモと年間コスト比較">
-<section class="sidebox expense-box"><h3>維持費の目安</h3>
-<div class="expense-row"><label for="tax">自動車税</label><input id="tax" type="text" inputmode="numeric" value="54000"><span>円</span></div>
-<div class="expense-row"><label for="tire">タイヤ</label><input id="tire" type="text" inputmode="numeric" value="60000"><span>円</span></div>
-<div class="expense-row"><label for="battery">バッテリー</label><input id="battery" type="text" inputmode="numeric" value="18000"><span>円</span></div>
-<div class="expense-row"><label for="inspection">車検</label><input id="inspection" type="text" inputmode="numeric" value="0"><span>円</span></div>
-<div class="expense-row"><label for="other">その他</label><input id="other" type="text" inputmode="numeric" value="25000"><span>円</span></div>
-<p class="expense-hint">（オイル・消耗品など）</p>
-<div class="expense-total"><label for="miscTotalInput">合計の目安</label><input id="miscTotalInput" readonly aria-label="維持費の合計金額"><span>円</span></div></section>
-<section class="sidebox note-box"><h3>メモ（その他費用など）</h3><textarea id="memo" aria-label="その他費用のメモ"></textarea></section>
-<section class="sidebox annual-box"><h3>年間コスト比較 <small>単位：万円／年</small></h3>
-<div class="annual-row" style="--rowcolor:#0d4b9b"><label>3年ごとに乗換</label><span>▶</span><output id="s3">33</output></div>
-<div class="annual-row" style="--rowcolor:#087333"><label>5年ごとに乗換</label><span>▶</span><output id="s5">33</output></div>
-<div class="annual-row" style="--rowcolor:#f45b0b"><label>7年乗った場合</label><span>▶</span><output id="s7">31.4</output></div>
-<div class="annual-row" style="--rowcolor:#d00000"><label>10年乗った場合</label><span>▶</span><output id="s10">34</output></div>
-<p class="annual-foot">※金額はすべて概算です。</p></section>
-<section class="sidebox chart-box" aria-label="年間コストのグラフ比較"><h3>どの乗り方がお得？ <small style="font-size:9px;color:#444">年間コスト</small></h3>
-<div class="chart-line" style="--barcolor:#0d4b9b"><div class="chart-line-top"><span>3年ごとに乗換</span><strong id="g3num">33万円</strong></div><div class="chart-track"><div id="g3bar" class="chart-fill"></div></div></div>
-<div class="chart-line" style="--barcolor:#087333"><div class="chart-line-top"><span>5年ごとに乗換</span><strong id="g5num">33万円</strong></div><div class="chart-track"><div id="g5bar" class="chart-fill"></div></div></div>
-<div class="chart-line" style="--barcolor:#f45b0b"><div class="chart-line-top"><span>7年乗った場合</span><strong id="g7num">31.4万円</strong></div><div class="chart-track"><div id="g7bar" class="chart-fill"></div></div></div>
-<div class="chart-line" style="--barcolor:#d00000"><div class="chart-line-top"><span>10年乗った場合</span><strong id="g10num">34万円</strong></div><div class="chart-track"><div id="g10bar" class="chart-fill"></div></div></div>
-<div class="chart-best" id="bestChoice" aria-live="polite">年間コスト最小：7年乗った場合</div><p class="chart-sub">※各条件の年平均額を比較。7年保有は7年換算、他は10年換算です。金額が低いほど経済的な試算です。</p></section>
-</aside></div><section class="conclusion"><h2>結論　長く乗る＝安いとは限りません！</h2><p>3年・5年での乗り換えでも、条件によって年間コストが大きく変わらない場合があります。</p><p style="color:#d00000;font-weight:900">高査定で売却し、計画的に乗り換えることで、快適で安心なカーライフを！</p></section><section class="benefits"><h3>計画的に乗り換えるメリット</h3><div class="benefitgrid"><div><b>高査定で売却可能！</b>新しいうちに売却することで、総コストの低減につながります。</div><div><b>車検前に乗換！</b>車検費用がかかる前の乗り換えも検討できます。</div><div><b>最新安全装備へ！</b>新しい安全装備や機能を利用できます。</div><div><b>月々の負担を一定化！</b>計画的な乗り換えで家計管理をしやすくします。</div></div></section><p class="note">※概算の比較です。3年・5年は設定台数分を10年間で割り、7年は7年間で割っています。費用条件や走行距離などにより変動します。</p></article><script>
-const ids=['customer','car','commonPrice','m10','r10','m3','r3','n3','m5','r5','n5','m7','r7','tax','tire','battery','inspection','other','memo'];try{const data=JSON.parse(localStorage.getItem('car-cost-data')||'{}');ids.forEach(id=>{if(data[id]!==undefined)document.getElementById(id).value=data[id]});if(data.commonPrice===undefined&&data.p10!==undefined)document.getElementById('commonPrice').value=data.p10}catch(e){}
-const val=id=>Number(String(document.getElementById(id).value).replace(/,/g,''))||0;const fmt=n=>Number.isFinite(n)?Number(n.toFixed(1)).toLocaleString('ja-JP',{maximumFractionDigits:1}):'—';const set=(id,n)=>document.getElementById(id).textContent=fmt(n);function calculate(){['p10','p3','p5','p7'].forEach(id=>set('display-'+id,val('commonPrice')));const t10=val('commonPrice')+val('m10')-val('r10'),t3=(val('commonPrice')+val('m3')-val('r3'))*val('n3'),t5=(val('commonPrice')+val('m5')-val('r5'))*val('n5'),t7=val('commonPrice')+val('m7')-val('r7');[['10',t10,t10/10],['3',t3,t3/10],['5',t5,t5/10],['7',t7,t7/7]].forEach(([id,total,annual])=>{set('t'+id,total);set('a'+id,annual);set('s'+id,annual)});const choices=[{id:'3',name:'3年ごとに乗換',annual:t3/10},{id:'5',name:'5年ごとに乗換',annual:t5/10},{id:'7',name:'7年乗った場合',annual:t7/7},{id:'10',name:'10年乗った場合',annual:t10/10}];const maxBar=Math.max(1,...choices.map(x=>Math.max(0,x.annual)));choices.forEach(x=>{document.getElementById('g'+x.id+'num').textContent=fmt(x.annual)+'万円';document.getElementById('g'+x.id+'bar').style.width=(Math.max(0,x.annual)/maxBar*100)+'%'});const best=Math.min(...choices.map(x=>x.annual));const winners=choices.filter(x=>Math.abs(x.annual-best)<0.000001);document.getElementById('bestChoice').textContent='年間コスト最小：'+winners.map(x=>x.name).join('・')+'（'+fmt(best)+'万円／年）';document.getElementById('miscTotalInput').value=['tax','tire','battery','inspection','other'].reduce((sum,id)=>sum+val(id),0).toLocaleString('ja-JP');try{localStorage.setItem('car-cost-data',JSON.stringify(Object.fromEntries(ids.map(id=>[id,document.getElementById(id).value]))))}catch(e){}}const expenseIds=['tax','tire','battery','inspection','other'];
-function formatExpense(id){const el=document.getElementById(id);const clean=el.value.replace(/[^0-9]/g,'');el.value=clean===''?'':Number(clean).toLocaleString('ja-JP');}
-expenseIds.forEach(id=>{const el=document.getElementById(id);el.addEventListener('focus',()=>{el.value=el.value.replace(/,/g,'')});el.addEventListener('blur',()=>formatExpense(id));});
-ids.forEach(id=>document.getElementById(id).addEventListener('input',calculate));
-expenseIds.forEach(formatExpense);calculate();
-</script>
-<script>
-/* 外部ライブラリなし: SVG foreignObjectで帳票を画像化し、JPEGをA4 PDFの1ページに格納する */
-async function createA4Pdf(){
- const button=document.getElementById('pdfButton'), help=document.getElementById('pdfHelp');
- button.disabled=true; button.textContent='PDF作成中…'; help.removeAttribute('role');
+const expenseIds=['tax','tire','battery','inspection','other'];function formatExpense(id){let el=document.getElementById(id);let cleaned=el.value.replace(/[^0-9]/g,'');el.value=cleaned===''?'':Number(cleaned).toLocaleString('ja-JP')}
+expenseIds.forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('focus',()=>el.value=el.value.replace(/,/g,''));el.addEventListener('blur',()=>formatExpense(id))});ids.forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',calculate)});expenseIds.forEach(id=>{if(document.getElementById(id))formatExpense(id)});calculate();</script><script>
+/* 外部ライブラリなし: HTMLの矩形と文字を高解像度Canvasへ直接描画し、A4 PDFの1ページに格納する */
+async function createA4Pdf(mode='save'){
+ const saveButton=document.getElementById('pdfButton'),printButton=document.getElementById('printButton'), help=document.getElementById('pdfHelp');
+ // ポップアップはクリック直後に開く（非同期PDF生成後だとブロックされやすい）
+ const printWindow=mode==='print'?window.open('','_blank'):null;
+ if(mode==='print' && !printWindow){help.setAttribute('role','alert');help.textContent='印刷画面を開けませんでした。ポップアップを許可するか「PDF保存」から印刷してください。';return;}
+ if(printWindow){printWindow.document.open();printWindow.document.write('<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>A4印刷の準備中</title></head><body style="font-family:sans-serif;padding:24px">A4 PDFを作成しています…</body></html>');printWindow.document.close();}
+ saveButton.disabled=true;printButton.disabled=true;
+ (mode==='print'?printButton:saveButton).textContent='PDF作成中…'; help.removeAttribute('role');
  help.textContent='PDFを作成しています（オフライン対応）…';
  try{
   if(document.activeElement?.blur)document.activeElement.blur();
@@ -189,35 +104,125 @@ async function createA4Pdf(){
     a.forEach((child,i)=>inline(child,b[i]));
    };
    // 入力値の表示も含めて現在の描画を固定
-   inline(host,host); // no-op: descendants styled below
+   // クローン全体の計算済みスタイルは次の処理で適用する
    const nodes=clone.querySelectorAll('*');
    // 直接クローンに計算済みCSSを埋め込む（順序を固定）
    for(const el of nodes){const st=getComputedStyle(el);let css='';for(const key of st){const v=st.getPropertyValue(key);if(v)css+=key+':'+v+';'}el.setAttribute('style',css);}
    const height=Math.ceil(clone.getBoundingClientRect().height+2);
    const width=1100;
    if(height<10||height>10000)throw Error('帳票のサイズを取得できませんでした');
-   const serializer=new XMLSerializer();
-   const xhtml=serializer.serializeToString(clone);
-   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1100px;background:white">'+xhtml+'</div></foreignObject></svg>';
-   const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
-   const url=URL.createObjectURL(blob);const image=new Image();
-   try{await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(Error('帳票画像の描画に失敗しました'));image.src=url;});}
-   finally{URL.revokeObjectURL(url)}
-   const scale=1.65,canvas=document.createElement('canvas');
-   canvas.width=Math.round(width*scale);canvas.height=Math.round(height*scale);
-   const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);
-   ctx.drawImage(image,0,0,canvas.width,canvas.height);
-   const jpeg=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('画像の変換に失敗しました')),'image/jpeg',.91));
+   // CanvasへDOMの実際の矩形とテキストを直接描画する。
+   // SVG foreignObject経由ではCanvasが汚染扱いとなりPDFに変換できないため使用しない。
+   // 端末のCanvas最大ピクセル数に収める。高画質優先、メモリを使い過ぎない。
+  const scale=Math.min(2.25,Math.sqrt(13000000/(width*height))),canvas=document.createElement('canvas');
+   canvas.width=Math.ceil(width*scale);canvas.height=Math.ceil(height*scale);
+   const ctx=canvas.getContext('2d');if(!ctx)throw Error('PDF描画用のメモリを確保できませんでした');ctx.scale(scale,scale);
+   ctx.fillStyle='#fff';ctx.fillRect(0,0,width,height);
+   const origin=clone.getBoundingClientRect();
+   const elements=[clone,...clone.querySelectorAll('*')];
+   const local=r=>({x:r.left-origin.left,y:r.top-origin.top,w:r.width,h:r.height});
+   function roundedBox(x,y,w,h,r){r=Math.max(0,Math.min(r,w/2,h/2));ctx.beginPath();if(typeof ctx.roundRect==='function'){ctx.roundRect(x,y,w,h,r)}else{ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath()}}
+   const visible=st=>st.display!=='none'&&st.visibility!=='hidden'&&Number(st.opacity)!==0;
+   function drawBox(el){
+    const st=getComputedStyle(el);if(!visible(st))return;
+    const r=local(el.getBoundingClientRect());if(r.w<=0||r.h<=0)return;
+    const radius=parseFloat(st.borderTopLeftRadius)||0;
+    if(st.backgroundColor!=='rgba(0, 0, 0, 0)'&&st.backgroundColor!=='transparent'){
+      ctx.fillStyle=st.backgroundColor;roundedBox(r.x,r.y,r.w,r.h,radius);ctx.fill();
+    }
+    // 四辺が同じ枠線の場合は、線を4本引くのでなく角丸の閉じたパスで描画する。
+    // Canvasにおいても元HTMLのborder-radiusを維持できる。
+    const edges=['Top','Right','Bottom','Left'].map(side=>({
+      width:parseFloat(st['border'+side+'Width'])||0,
+      style:st['border'+side+'Style'],
+      color:st['border'+side+'Color']
+    }));
+    const equal=edges.every(e=>e.width===edges[0].width&&e.style===edges[0].style&&e.color===edges[0].color);
+    const e0=edges[0];
+    if(equal && e0.width>0 && e0.style!=='none' && e0.color!=='rgba(0, 0, 0, 0)'){
+      const inset=e0.width/2;
+      ctx.strokeStyle=e0.color;
+      ctx.lineWidth=e0.width;
+      ctx.setLineDash(e0.style==='dotted'?[1,2]:e0.style==='dashed'?[4,3]:[]);
+      roundedBox(r.x+inset,r.y+inset,r.w-e0.width,r.h-e0.width,Math.max(0,radius-inset));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }else{
+      // 下線のみなど、四辺のスタイルが異なる要素は従来どおり描画する。
+      const sides=[['Top',r.x,r.y,r.x+r.w,r.y],['Right',r.x+r.w,r.y,r.x+r.w,r.y+r.h],['Bottom',r.x,r.y+r.h,r.x+r.w,r.y+r.h],['Left',r.x,r.y,r.x,r.y+r.h]];
+      for(const [side,x1,y1,x2,y2] of sides){
+        const bw=parseFloat(st['border'+side+'Width'])||0;
+        if(bw>0&&st['border'+side+'Style']!=='none'&&st['border'+side+'Color']!=='rgba(0, 0, 0, 0)'){
+          ctx.strokeStyle=st['border'+side+'Color'];ctx.lineWidth=bw;
+          ctx.setLineDash(st['border'+side+'Style']==='dotted'?[1,2]:st['border'+side+'Style']==='dashed'?[4,3]:[]);
+          ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);
+        }
+      }
+    }
+   }
+   elements.forEach(drawBox);
+   function paintText(node){
+    const txt=node.textContent;if(!txt||!txt.trim())return;
+    const el=node.parentElement;if(!el)return;
+    const st=getComputedStyle(el);if(!visible(st))return;
+    const size=parseFloat(st.fontSize)||12;
+    ctx.font=st.font;
+    ctx.fillStyle=st.color;
+    ctx.textBaseline='alphabetic';
+    const range=document.createRange();let start=0;
+    // 文字単位で位置を取得し、同じ行をグループ化する（日本語・折り返し対応）
+    let group='',gx=0,gy=0,previousRight=0;
+    function flush(){if(group.trim()){ctx.fillText(group,gx,gy);}group=''}
+    for(let i=0;i<txt.length;i++){
+      const c=txt[i];if(c==='\n'||c==='\r'){flush();continue}
+      range.setStart(node,i);range.setEnd(node,i+1);
+      const box=range.getBoundingClientRect();if(!box.width||!box.height){flush();continue}
+      const rr=local(box),x=rr.x,y=rr.y+Math.min(size,rr.h)*.86;
+      if(!group){gx=x;gy=y;previousRight=rr.x+rr.w;group=c}
+      else if(Math.abs(y-gy)>3||Math.abs(x-previousRight)>2.5){flush();gx=x;gy=y;previousRight=rr.x+rr.w;group=c}
+      else{group+=c;previousRight=rr.x+rr.w}
+    }
+    flush();range.detach();
+   }
+   const walker=document.createTreeWalker(clone,NodeFilter.SHOW_TEXT);
+   let node;while((node=walker.nextNode()))paintText(node);
+   // 同梱したHONDAロゴ画像をCanvasに直接配置。外部画像ではないためCORSエラーを回避。
+   const logo=clone.querySelector('.honda img');
+   if(logo){
+     const image=await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error('HONDAロゴを読み込めませんでした'));img.src=logo.src;});
+     const box=local(logo.getBoundingClientRect());ctx.drawImage(image,box.x,box.y,box.w,box.h);
+   }
+   const jpeg=await new Promise((resolve,reject)=>{
+     try{canvas.toBlob(b=>b?resolve(b):reject(Error('画像の変換に失敗しました')),'image/jpeg',.96)}
+     catch(e){reject(Error('画像出力に失敗しました：'+e.message))}
+   });
    const pdf=await buildSinglePagePdf(jpeg,canvas.width,canvas.height);
    const pdfUrl=URL.createObjectURL(pdf);
-   const link=document.createElement('a');
-   const customer=document.getElementById('customer').value.trim().replace(/[\\/:*?"<>|]/g,'').slice(0,35);
-   link.href=pdfUrl;link.download='車の保有コスト比較'+(customer?'_'+customer:'')+'.pdf';document.body.appendChild(link);link.click();link.remove();
-   setTimeout(()=>URL.revokeObjectURL(pdfUrl),60000);
-   help.textContent='A4縦1ページのPDFを保存しました。PDFを開いて印刷してください。';
+   if(mode==='print'){
+     // PDFそのものを印刷対象にする。HTML本体のページ分割は使用しない。
+     // ブラウザ組込みPDFビューアの挙動により自動的なダイアログ表示は保証できない。
+     printWindow.document.open();
+     printWindow.document.write(`<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>車の保有コスト比較 - 印刷</title><style>html,body{margin:0;height:100%;font-family:sans-serif}header{display:flex;align-items:center;gap:12px;padding:9px 14px;background:#f2f4f7}button{border:0;border-radius:6px;background:#c90000;color:#fff;padding:10px 16px;cursor:pointer;font-weight:bold}small{color:#444}iframe{border:0;width:100%;height:calc(100% - 58px)}</style></head><body><header><button id="goPrint">印刷画面を開く</button><small>印刷画面が自動で出ない場合は、このボタンを押してください。用紙はA4、倍率100%を選択してください。</small></header><iframe id="pdfFrame" title="A4縦1ページPDF"></iframe></body></html>`);
+     printWindow.document.close();
+     const frame=printWindow.document.getElementById('pdfFrame');
+     const trigger=()=>{try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){console.warn('PDF印刷画面を自動表示できません',e)}};
+     printWindow.document.getElementById('goPrint').onclick=trigger;
+     frame.onload=()=>{printWindow.setTimeout(trigger,600)};
+     frame.src=pdfUrl;
+     printWindow.focus();
+     // 印刷用タブが開いている間はBlob URLを保持する
+     printWindow.addEventListener('pagehide',()=>URL.revokeObjectURL(pdfUrl),{once:true});
+     help.textContent='A4 PDFを別タブで開きました。印刷画面が自動表示されない場合は、別タブの「印刷画面を開く」を押してください。';
+   }else{
+     const link=document.createElement('a');
+     const customer=document.getElementById('customer').value.trim().replace(/[\\/:*?"<>|]/g,'').slice(0,35);
+     link.href=pdfUrl;link.download='車の保有コスト比較'+(customer?'_'+customer:'')+'.pdf';document.body.appendChild(link);link.click();link.remove();
+     setTimeout(()=>URL.revokeObjectURL(pdfUrl),60000);
+     help.textContent='A4縦1ページのPDFを保存しました。';
+   }
   } finally{host.remove()}
- }catch(err){console.error(err);help.setAttribute('role','alert');help.textContent='PDF作成に失敗しました：'+(err.message||err)}
- finally{button.disabled=false;button.textContent='A4 PDF作成・印刷'}
+ }catch(err){console.error(err);if(printWindow&&!printWindow.closed)printWindow.close();help.setAttribute('role','alert');help.textContent='PDF作成に失敗しました：'+(err.message||err)}
+ finally{saveButton.disabled=false;printButton.disabled=false;saveButton.textContent='PDF保存';printButton.textContent='直接印刷'}
 }
 async function buildSinglePagePdf(jpeg,width,height){
  const imageData=new Uint8Array(await jpeg.arrayBuffer());
@@ -237,5 +242,4 @@ async function buildSinglePagePdf(jpeg,width,height){
  add('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
  return new Blob(chunks,{type:'application/pdf'});
 }
-</script>
-</body></html>
+</script></body></html>
