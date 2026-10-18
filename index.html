@@ -92,44 +92,25 @@
   .note { margin-top:2px !important; }
 }
 
-/* A4縦1枚に収めるための印刷専用設定。画面表示には影響しません。 */
-@page { size: A4 portrait; margin: 5mm; }
+/* Edge/A4 print: single positioned sheet avoids fragmentation by the print engine. */
+@page { size: 210mm 297mm; margin: 5mm; }
 @media print {
-  html,body { width:auto!important; height:auto!important; margin:0!important; padding:0!important; overflow:visible!important; }
+  html, body { margin:0!important; padding:0!important; width:200mm!important; height:0!important; min-height:0!important; overflow:visible!important; background:#fff!important; }
   .toolbar { display:none!important; }
-  .sheet {
-    width:200mm!important; max-width:none!important;
-    margin:0!important; padding:0!important; border:0!important;
-    box-shadow:none!important;
-    zoom:0.82!important;
-    break-inside:avoid!important;
-    page-break-inside:avoid!important;
-  }
-  .layout { grid-template-columns:2.35fr 1fr!important; }
-  .main,.side,.panel,.sidebox,.conclusion,.benefits {
-    break-inside:avoid!important; page-break-inside:avoid!important;
-  }
-  .benefits,.note { break-before:avoid!important; page-break-before:avoid!important; }
+  .sheet { position:absolute!important; top:0!important; left:50%!important; width:200mm!important; max-width:none!important; margin:0!important; padding:0!important; height:auto!important; min-height:0!important; box-shadow:none!important; border:0!important; transform:translateX(-50%)!important; zoom:.86!important; }
+  .layout{grid-template-columns:2.35fr 1fr!important;}
+  .main{gap:5px!important;} .side{gap:4px!important;} .sidebox{padding:5px!important;}
+  .panel{padding:5px 7px!important;} .panel h2{margin-bottom:4px!important;}
+  .customer{margin:3px 0 5px!important;} .conclusion,.benefits{margin-top:4px!important;}
+  .chart-line{margin-bottom:3px!important;} .note{margin-top:2px!important;}
+  .top h1{font-size:24px!important;}
+  .main,.side,.panel,.sidebox,.conclusion,.benefits,.benefitgrid {break-inside:auto!important;page-break-inside:auto!important;}
 }
 
-/* A4縦・実印刷領域200×287mm。高さ優先、左右中央配置。 */
-@page { size:A4 portrait; margin:5mm; }
-@media print {
-  html,body {width:100%!important;height:auto!important;overflow:visible!important;margin:0!important;padding:0!important;background:#fff!important;}
-  .sheet {
-    width:190mm!important; max-width:190mm!important;
-    min-height:284mm!important; height:auto!important;
-    margin:0 auto!important; padding:0!important;
-    zoom:1!important;
-    display:flex!important;flex-direction:column!important;
-    justify-content:space-between!important;
-    border:0!important;box-shadow:none!important;
-    break-inside:avoid!important;page-break-inside:avoid!important;
-  }
-  .layout {grid-template-columns:2.35fr 1fr!important;}
-  .toolbar {display:none!important;}
-}
-</style></head><body><div class="toolbar"><div><b>保有コスト比較 WEBアプリ</b><br><small>数値を変更すると自動計算されます。データはこの端末内でのみ保持されます。</small></div><button onclick="window.print()">印刷・PDF保存</button></div><article class="sheet"><header class="top"><h1>車の保有コスト比較シミュレーション</h1></header><div class="customer"><label>お客様名 <input id="customer" placeholder="お名前"></label><label>車名 <input id="car" placeholder="車種"></label></div><div class="layout"><div class="main">
+.pdf-help{max-width:1120px;margin:-7px auto 12px;padding:0 12px;font-size:12px;color:#42516a}
+.pdf-help[role="alert"]{color:#b00020;font-weight:700}
+@media print{.pdf-help{display:none!important}}
+</style></head><body><div class="toolbar"><div><b>保有コスト比較 WEBアプリ</b><br><small>数値を変更すると自動計算されます。データはこの端末内でのみ保持されます。</small></div><button id="pdfButton" type="button" onclick="createA4Pdf()">A4 PDF作成・印刷</button></div><div class="pdf-help" id="pdfHelp">印刷ボタンでA4縦1ページのPDFを作成します。PDFを開き、その画面から印刷してください（ネット接続不要）。</div><article class="sheet"><header class="top"><h1>車の保有コスト比較シミュレーション</h1></header><div class="customer"><label>お客様名 <input id="customer" placeholder="お名前"></label><label>車名 <input id="car" placeholder="車種"></label></div><div class="layout"><div class="main">
 <section class="panel" style="border:2px solid #c90000;margin-bottom:12px;padding:12px 16px;background:#fff9f9"><label for="commonPrice" style="font-weight:900;font-size:17px;color:#c90000">共通の車両代（万円）</label><input type="number" id="commonPrice" value="250" min="0" step="1" style="width:150px;margin-left:12px;font-size:20px;font-weight:800;padding:7px;border:1px solid #b6b6b6;border-radius:5px"></section><section class="panel red"><h2><span class="num">1</span>10年乗った場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p10">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m10" value="100"></div><div class="field"><label>10年後査定額（万円）</label><input type="number" id="r10" value="10"></div></div><div class="calc"><span>車両代 ＋ 維持費 − 査定額</span><div class="pill"><small>総コスト</small><strong id="t10">340</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a10">34</strong> 万円</div></div></section>
 <section class="panel blue"><h2><span class="num">2</span>3年ごとに乗り換えた場合 <small style="font-size:11px">（車検なし）</small></h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p3">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円・1台あたり3年間）</label><input type="number" id="m3" value="0"></div><div class="field"><label>3年後査定額（万円）</label><input type="number" id="r3" value="140"></div><div class="field"><label>10年間の乗換台数</label><input type="number" id="n3" value="3" min="1"></div></div><div class="calc"><span>（車両代 ＋ 維持費 − 査定額）× 台数</span><div class="pill"><small>総コスト</small><strong id="t3">330</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a3">33</strong> 万円</div></div></section>
 <section class="panel green"><h2><span class="num">3</span>5年ごとに乗り換えた場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p5">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m5" value="15"></div><div class="field"><label>5年後査定額（万円）</label><input type="number" id="r5" value="100"></div><div class="field"><label>10年間の乗換台数</label><input type="number" id="n5" value="2" min="1"></div></div><div class="calc"><span>（車両代 ＋ 維持費 − 査定額）× 台数</span><div class="pill"><small>総コスト</small><strong id="t5">330</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a5">33</strong> 万円</div></div></section>
@@ -163,5 +144,98 @@ function formatExpense(id){const el=document.getElementById(id);const clean=el.v
 expenseIds.forEach(id=>{const el=document.getElementById(id);el.addEventListener('focus',()=>{el.value=el.value.replace(/,/g,'')});el.addEventListener('blur',()=>formatExpense(id));});
 ids.forEach(id=>document.getElementById(id).addEventListener('input',calculate));
 expenseIds.forEach(formatExpense);calculate();
-
-</script></body></html>
+</script>
+<script>
+/* 外部ライブラリなし: SVG foreignObjectで帳票を画像化し、JPEGをA4 PDFの1ページに格納する */
+async function createA4Pdf(){
+ const button=document.getElementById('pdfButton'), help=document.getElementById('pdfHelp');
+ button.disabled=true; button.textContent='PDF作成中…'; help.removeAttribute('role');
+ help.textContent='PDFを作成しています（オフライン対応）…';
+ try{
+  if(document.activeElement?.blur)document.activeElement.blur();
+  calculate(); await document.fonts.ready;
+  const source=document.querySelector('.sheet');
+  const host=document.createElement('div');
+  host.style.cssText='position:fixed;left:-20000px;top:0;width:1100px;background:white;z-index:-1';
+  const clone=source.cloneNode(true);
+  clone.style.cssText='width:1100px!important;max-width:none!important;margin:0!important;padding:18px 16px 12px!important;box-shadow:none!important;background:#fff!important;border:0!important;';
+  host.appendChild(clone);document.body.appendChild(host);
+  try{
+   const realFields=source.querySelectorAll('input,textarea,select');
+   const cloneFields=clone.querySelectorAll('input,textarea,select');
+   realFields.forEach((el,i)=>{
+    const dest=cloneFields[i]; if(!dest)return;
+    const display=document.createElement('div'); const st=getComputedStyle(el);
+    for(const prop of st){try{display.style.setProperty(prop,st.getPropertyValue(prop),st.getPropertyPriority(prop))}catch(e){}}
+    display.style.display='block';display.style.whiteSpace=el.tagName==='TEXTAREA'?'pre-wrap':'nowrap';
+    display.style.overflow='hidden';display.style.textOverflow='clip';
+    display.style.boxSizing='border-box';display.style.lineHeight=st.lineHeight==='normal'?'normal':st.lineHeight;
+    display.style.paddingTop=st.paddingTop;display.style.paddingBottom=st.paddingBottom;
+    display.textContent=el.value||el.placeholder||'';
+    if(el.tagName==='TEXTAREA'){display.style.height=st.height;display.style.minHeight=st.minHeight;}
+    dest.replaceWith(display);
+   });
+   // 計算後のバー・テキストはDOMの複製で引き継ぐ
+   const all=clone.querySelectorAll('*');
+   const live=source.querySelectorAll('*');
+   // CSSは外部ファイルを参照せず、要素ごとの計算済みスタイルを埋め込む
+   const inline=(original,copy)=>{
+    if(!original||!copy||original.nodeType!==1||copy.nodeType!==1)return;
+    const css=getComputedStyle(original);
+    let str='';for(const key of css){const value=css.getPropertyValue(key);if(value)str+=key+':'+value+';'}
+    copy.setAttribute('style',str);
+    const a=[...original.children],b=[...copy.children];
+    // inputがdivになったため、子要素数は同じ
+    a.forEach((child,i)=>inline(child,b[i]));
+   };
+   // 入力値の表示も含めて現在の描画を固定
+   inline(host,host); // no-op: descendants styled below
+   const nodes=clone.querySelectorAll('*');
+   // 直接クローンに計算済みCSSを埋め込む（順序を固定）
+   for(const el of nodes){const st=getComputedStyle(el);let css='';for(const key of st){const v=st.getPropertyValue(key);if(v)css+=key+':'+v+';'}el.setAttribute('style',css);}
+   const height=Math.ceil(clone.getBoundingClientRect().height+2);
+   const width=1100;
+   if(height<10||height>10000)throw Error('帳票のサイズを取得できませんでした');
+   const serializer=new XMLSerializer();
+   const xhtml=serializer.serializeToString(clone);
+   const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+width+'" height="'+height+'"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1100px;background:white">'+xhtml+'</div></foreignObject></svg>';
+   const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+   const url=URL.createObjectURL(blob);const image=new Image();
+   try{await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(Error('帳票画像の描画に失敗しました'));image.src=url;});}
+   finally{URL.revokeObjectURL(url)}
+   const scale=1.65,canvas=document.createElement('canvas');
+   canvas.width=Math.round(width*scale);canvas.height=Math.round(height*scale);
+   const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);
+   ctx.drawImage(image,0,0,canvas.width,canvas.height);
+   const jpeg=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error('画像の変換に失敗しました')),'image/jpeg',.91));
+   const pdf=await buildSinglePagePdf(jpeg,canvas.width,canvas.height);
+   const pdfUrl=URL.createObjectURL(pdf);
+   const link=document.createElement('a');
+   const customer=document.getElementById('customer').value.trim().replace(/[\\/:*?"<>|]/g,'').slice(0,35);
+   link.href=pdfUrl;link.download='車の保有コスト比較'+(customer?'_'+customer:'')+'.pdf';document.body.appendChild(link);link.click();link.remove();
+   setTimeout(()=>URL.revokeObjectURL(pdfUrl),60000);
+   help.textContent='A4縦1ページのPDFを保存しました。PDFを開いて印刷してください。';
+  } finally{host.remove()}
+ }catch(err){console.error(err);help.setAttribute('role','alert');help.textContent='PDF作成に失敗しました：'+(err.message||err)}
+ finally{button.disabled=false;button.textContent='A4 PDF作成・印刷'}
+}
+async function buildSinglePagePdf(jpeg,width,height){
+ const imageData=new Uint8Array(await jpeg.arrayBuffer());
+ const encoder=new TextEncoder(),chunks=[],offsets=[0],parts=[];
+ let position=0;
+ const add=v=>{let bytes=typeof v==='string'?encoder.encode(v):v;chunks.push(bytes);position+=bytes.length};
+ const object=(n,body)=>{offsets[n]=position;add(n+' 0 obj\n');add(body);add('\nendobj\n')};
+ add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+ object(1,'<< /Type /Catalog /Pages 2 0 R >>');
+ object(2,'<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+ object(3,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.276 841.89] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
+ offsets[4]=position;add('4 0 obj\n<< /Type /XObject /Subtype /Image /Width '+width+' /Height '+height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+imageData.length+' >>\nstream\n');add(imageData);add('\nendstream\nendobj\n');
+ const maxW=595.276-28.35,maxH=841.89-28.35,ratio=Math.min(maxW/width,maxH/height),w=width*ratio,h=height*ratio,x=(595.276-w)/2,y=(841.89-h)/2;
+ const stream='q\n'+w.toFixed(4)+' 0 0 '+h.toFixed(4)+' '+x.toFixed(4)+' '+y.toFixed(4)+' cm\n/Im0 Do\nQ\n';
+ object(5,'<< /Length '+encoder.encode(stream).length+' >>\nstream\n'+stream+'endstream');
+ const xref=position;add('xref\n0 6\n0000000000 65535 f \n');for(let i=1;i<=5;i++)add(String(offsets[i]).padStart(10,'0')+' 00000 n \n');
+ add('trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF');
+ return new Blob(chunks,{type:'application/pdf'});
+}
+</script>
+</body></html>
