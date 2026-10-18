@@ -69,6 +69,66 @@
 @media(max-width:740px){.customer{gap:8px}.customer label{font-size:11px;gap:5px}.customer input{font-size:14px;padding:6px 4px}}
 @media(max-width:420px){.customer{grid-template-columns:1fr}}
 @media print{.customer{grid-template-columns:1fr 1fr;gap:10px}.customer label{font-size:9px;white-space:nowrap}}
+
+/* A4 single-page print layout: screen appearance is unchanged */
+@page { size: A4 portrait; margin: 5mm !important; }
+@media print {
+  html,body { width: 200mm !important; margin:0 !important; padding:0 !important; overflow:visible !important; }
+  .toolbar { display:none !important; }
+  .sheet { width: 200mm !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; zoom: .78; }
+  .layout { grid-template-columns: 2.35fr 1fr !important; }
+  .main,.side { break-inside:avoid; }
+  .panel,.sidebox,.conclusion,.benefits { break-inside:avoid; page-break-inside:avoid; }
+  .top h1 { font-size:24px !important; }
+  .panel { padding:5px 7px !important; }
+  .panel h2 { margin-bottom:4px !important; }
+  .main { gap:4px !important; }
+  .side { gap:4px !important; }
+  .sidebox { padding:5px !important; }
+  .customer { margin:3px 0 5px !important; }
+  .benefits { margin-top:4px !important; }
+  .conclusion { margin-top:4px !important; }
+  .chart-line { margin-bottom:3px !important; }
+  .note { margin-top:2px !important; }
+}
+
+/* A4縦1枚に収めるための印刷専用設定。画面表示には影響しません。 */
+@page { size: A4 portrait; margin: 5mm; }
+@media print {
+  html,body { width:auto!important; height:auto!important; margin:0!important; padding:0!important; overflow:visible!important; }
+  .toolbar { display:none!important; }
+  .sheet {
+    width:200mm!important; max-width:none!important;
+    margin:0!important; padding:0!important; border:0!important;
+    box-shadow:none!important;
+    zoom:0.82!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .layout { grid-template-columns:2.35fr 1fr!important; }
+  .main,.side,.panel,.sidebox,.conclusion,.benefits {
+    break-inside:avoid!important; page-break-inside:avoid!important;
+  }
+  .benefits,.note { break-before:avoid!important; page-break-before:avoid!important; }
+}
+
+/* A4縦・実印刷領域200×287mm。高さ優先、左右中央配置。 */
+@page { size:A4 portrait; margin:5mm; }
+@media print {
+  html,body {width:100%!important;height:auto!important;overflow:visible!important;margin:0!important;padding:0!important;background:#fff!important;}
+  .sheet {
+    width:190mm!important; max-width:190mm!important;
+    min-height:284mm!important; height:auto!important;
+    margin:0 auto!important; padding:0!important;
+    zoom:1!important;
+    display:flex!important;flex-direction:column!important;
+    justify-content:space-between!important;
+    border:0!important;box-shadow:none!important;
+    break-inside:avoid!important;page-break-inside:avoid!important;
+  }
+  .layout {grid-template-columns:2.35fr 1fr!important;}
+  .toolbar {display:none!important;}
+}
 </style></head><body><div class="toolbar"><div><b>保有コスト比較 WEBアプリ</b><br><small>数値を変更すると自動計算されます。データはこの端末内でのみ保持されます。</small></div><button onclick="window.print()">印刷・PDF保存</button></div><article class="sheet"><header class="top"><h1>車の保有コスト比較シミュレーション</h1></header><div class="customer"><label>お客様名 <input id="customer" placeholder="お名前"></label><label>車名 <input id="car" placeholder="車種"></label></div><div class="layout"><div class="main">
 <section class="panel" style="border:2px solid #c90000;margin-bottom:12px;padding:12px 16px;background:#fff9f9"><label for="commonPrice" style="font-weight:900;font-size:17px;color:#c90000">共通の車両代（万円）</label><input type="number" id="commonPrice" value="250" min="0" step="1" style="width:150px;margin-left:12px;font-size:20px;font-weight:800;padding:7px;border:1px solid #b6b6b6;border-radius:5px"></section><section class="panel red"><h2><span class="num">1</span>10年乗った場合</h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p10">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円）</label><input type="number" id="m10" value="100"></div><div class="field"><label>10年後査定額（万円）</label><input type="number" id="r10" value="10"></div></div><div class="calc"><span>車両代 ＋ 維持費 − 査定額</span><div class="pill"><small>総コスト</small><strong id="t10">340</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a10">34</strong> 万円</div></div></section>
 <section class="panel blue"><h2><span class="num">2</span>3年ごとに乗り換えた場合 <small style="font-size:11px">（車検なし）</small></h2><div class="fields"><div class="field"><label>車両代（万円）</label><div class="shared-price"><strong id="display-p3">250</strong> 万円 <small>（共通設定）</small></div></div><div class="field"><label>維持費（万円・1台あたり3年間）</label><input type="number" id="m3" value="0"></div><div class="field"><label>3年後査定額（万円）</label><input type="number" id="r3" value="140"></div><div class="field"><label>10年間の乗換台数</label><input type="number" id="n3" value="3" min="1"></div></div><div class="calc"><span>（車両代 ＋ 維持費 − 査定額）× 台数</span><div class="pill"><small>総コスト</small><strong id="t3">330</strong> 万円</div><div class="pill"><small>年間コスト</small><strong id="a3">33</strong> 万円</div></div></section>
@@ -103,4 +163,5 @@ function formatExpense(id){const el=document.getElementById(id);const clean=el.v
 expenseIds.forEach(id=>{const el=document.getElementById(id);el.addEventListener('focus',()=>{el.value=el.value.replace(/,/g,'')});el.addEventListener('blur',()=>formatExpense(id));});
 ids.forEach(id=>document.getElementById(id).addEventListener('input',calculate));
 expenseIds.forEach(formatExpense);calculate();
+
 </script></body></html>
